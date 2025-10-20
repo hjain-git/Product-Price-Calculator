@@ -84,8 +84,12 @@ function setupProductBlock(productDiv) {
   }
 
   if (prodXUnit && prodUnitQty) {
-    prodXUnit.addEventListener("input", () => updateDisplayedQuantity(productDiv));
-    prodUnitQty.addEventListener("input", () => updateDisplayedQuantity(productDiv));
+    prodXUnit.addEventListener("input", () =>
+      updateDisplayedQuantity(productDiv)
+    );
+    prodUnitQty.addEventListener("input", () =>
+      updateDisplayedQuantity(productDiv)
+    );
   }
 
   updateLabels(productDiv);
@@ -107,22 +111,35 @@ function updateDisplayedQuantity(productDiv) {
 function updateLabels(productDiv) {
   const prodUnitSelect = productDiv.querySelector(".prod_unit");
   const userQtyInput = productDiv.querySelector(".user_qty");
-  const costPerUnitLabel = productDiv.querySelector(".cost_per_unit_price").previousElementSibling;
-  const costPer100UnitLabel = productDiv.querySelector(".cost_per_100unit_price").previousElementSibling;
-  const userQtyPriceLabel = productDiv.querySelector(".user_qty_price").previousElementSibling;
+  const costPerUnitLabel = productDiv.querySelector(
+    ".cost_per_unit_price"
+  ).previousElementSibling;
+  const costPer100UnitLabel = productDiv.querySelector(
+    ".cost_per_100unit_price"
+  ).previousElementSibling;
+  const userQtyPriceLabel =
+    productDiv.querySelector(".user_qty_price").previousElementSibling;
+  const prodUnitQtyLabel =
+    productDiv.querySelector(".prod_unit_qty").previousElementSibling;
+  const prodXUnitLabel =
+    productDiv.querySelector(".prod_x_unit").previousElementSibling;
 
   if (prodUnitSelect && costPerUnitLabel && costPer100UnitLabel) {
     const selectedOption = prodUnitSelect.options[prodUnitSelect.selectedIndex];
     const unitText = selectedOption.text;
     costPerUnitLabel.textContent = `Cost per 1 ${unitText}:`;
     costPer100UnitLabel.textContent = `Cost per 100 ${unitText}:`;
+    prodUnitQtyLabel.textContent = `Product quantity of 1 ${unitText}:`;
+    prodXUnitLabel.textContent = `Number of product ${unitText} shown(default: 1):`;
   }
 
   if (userQtyInput && userQtyPriceLabel) {
-    const userQty = userQtyInput.value || '<user input>';
+    const userQty = userQtyInput.value || "?";
     const selectedOption = prodUnitSelect.options[prodUnitSelect.selectedIndex];
     const unitText = selectedOption.text;
-    userQtyPriceLabel.textContent = `Cost per ${userQty} ${unitText.split(' ')[0]} (as required by User):`;
+    userQtyPriceLabel.textContent = `Cost per ${userQty} ${
+      unitText.split(" ")[0]
+    } (as required by User):`;
   }
 }
 
@@ -149,21 +166,11 @@ function addProduct() {
         <input type="text" class="prod_url" placeholder="https://example.com/product" />
       </div>
 
-      <div class="row">
+      <div class="row-fields">
         <div class="displayed_values">
-          <label>x unit of product(op) shown:</label>
-          <input type="number" class="prod_x_unit" placeholder="e.g. 1" value="1" />
-        </div>
-
-        <div class="displayed_values">
-          <label>product quantity of 1 unit:</label>
-          <input type="number" class="prod_unit_qty" placeholder="e.g. 10" />
-        </div>
-
-        <div class="displayed_values">
-          <label>Displayed Product Quantity:</label>
+          <label>Number of product units shown(default: 1):</label>
           <div class="quantity-input-group">
-            <input type="number" class="prod_qty" placeholder="e.g. 10" readonly />
+            <input type="number" class="prod_x_unit" placeholder="e.g. 1" value="1" />
             <select class="prod_unit">
               <option value="count">per piece</option>
               <option value="l">Liters (L)</option>
@@ -176,14 +183,26 @@ function addProduct() {
         </div>
 
         <div class="displayed_values">
-          <label>Displayed Price (₹):</label>
+          <label>Product quantity of 1 unit:</label>
+          <input type="number" class="prod_unit_qty" placeholder="e.g. 10" />
+        </div>
+      </div>
+
+      <div class="row-fields">
+        <div class="displayed_values">
+          <label>Displayed Product Quantity:</label>
+          <input type="number" class="prod_qty" placeholder="e.g. 10" readonly />
+        </div>
+
+        <div class="displayed_values">
+          <label>Displayed Product Price (₹):</label>
           <input type="number" class="prod_price" placeholder="e.g. 10" step="0.01" />
         </div>
       </div>
 
-      <div class="row">
+      <div class="row-fields">
         <div class="displayed_values">
-          <label>Required Quantity:</label>
+          <label>Required Quantity by User:</label>
           <input type="number" class="user_qty" placeholder="e.g. 4" />
         </div>
         <button class="calculate-btn">
@@ -192,7 +211,7 @@ function addProduct() {
         </button>
       </div>
 
-      <div class="row">
+      <div class="row-fields">
         <div class="displayed_values">
           <label>Cost per 1 Unit:</label>
           <input type="number" class="cost_per_unit_price" readonly />
@@ -201,6 +220,9 @@ function addProduct() {
           <label>Cost per 100 Unit:</label>
           <input type="number" class="cost_per_100unit_price" readonly />
         </div>
+      </div>
+
+      <div class="row">
         <div class="displayed_values">
           <label>Cost as required by User:</label>
           <input type="number" class="user_qty_price" readonly />

@@ -28,7 +28,7 @@ body {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 2rem auto;
   padding: 2rem;
 }
@@ -86,7 +86,7 @@ header p {
 
 .calculator-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
 }
 
@@ -135,6 +135,12 @@ header p {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.row-fields {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .prod_name {
