@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="app.js"></script>
+    <title>Product Price Calculator Pro</title>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Product Price Calculator Pro</h1>
+        <p>
+          Compare prices of products from different websites with advanced
+          calculations and real-time image fetching
+        </p>
+      </header>
+
+      <div class="prod_controls">
+        <button id="add_prod" class="action-btn primary">
+          <span class="btn-icon">➕</span>
+          Add Product
+        </button>
+      </div>
+
+      <div class="calculator-grid" id="grid">
+        <div class="calculator">
+          <div class="remove_product">
+            <button class="remove-button">
+              <span class="btn-icon">🗑️</span>
+              Remove Product
+            </button>
+          </div>
+          <section>
+            <div class="row">
+              <h2
+                contenteditable="true"
+                class="prod_name"
+                placeholder="Enter Product Name"
+              ></h2>
+            </div>
+
+            <div class="row">
+              <label>Product URL:</label>
+              <input
+                type="text"
+                class="prod_url"
+                placeholder="https://example.com/product"
+              />
+            </div>
+
+            <div class="row">
+              <div class="displayed_values">
+                <label>x unit of product(op) shown:</label>
+                <input type="number" class="prod_x_unit" placeholder="e.g. 1" value="1" />
+              </div>
+
+              <div class="displayed_values">
+                <label>product quantity of 1 unit:</label>
+                <input type="number" class="prod_unit_qty" placeholder="e.g. 10" />
+              </div>
+
+              <div class="displayed_values">
+                <label>Displayed Product Quantity:</label>
+                <div class="quantity-input-group">
+                  <input type="number" class="prod_qty" placeholder="e.g. 10" readonly />
+                  <select class="prod_unit" id="prod_unit_1">
+                    <option value="count">per piece</option>
+                    <option value="l">Liters (L)</option>
+                    <option value="ml">Milliliters (mL)</option>
+                    <option value="mg">Milligrams (mg)</option>
+                    <option value="gm">Grams (g)</option>
+                    <option value="kg">Kilograms (kg)</option>
+                    <option value="custom">Custom Unit</option>
+                  </select>
+                  <input type="text" class="custom_unit_input" id="custom_unit_1" placeholder="Enter custom unit" style="display: none;" />
+                </div>
+              </div>
+
+              <div class="displayed_values">
+                <label>Displayed Product Price (₹):</label>
+                <input
+                  type="number"
+                  class="prod_price"
+                  placeholder="e.g. 10"
+                  step="0.01"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="displayed_values">
+                <label>Required Quantity by User:</label>
+                <input type="number" class="user_qty" placeholder="e.g. 4" />
+              </div>
+              <button class="calculate-btn">
+                <span class="btn-icon">🧮</span>
+                Calculate
+              </button>
+            </div>
+
+            <div class="row">
+              <div class="displayed_values">
+                <label>Cost per 1 Unit:</label>
+                <input type="number" class="cost_per_unit_price" readonly />
+              </div>
+              <div class="displayed_values">
+                <label>Cost per 100 Unit:</label>
+                <input type="number" class="cost_per_100unit_price" readonly />
+              </div>
+              <div class="displayed_values">
+                <label>Cost as required by User:</label>
+                <input type="number" class="user_qty_price" readonly />
+              </div>
+            </div>
+
+            <div class="row">
+              <img src="" alt="Product Image" class="prod_image" />
+            </div>
+          </section>
+        </div>
+
+        <div class="calculator">
+          <div class="remove_product">
+            <button class="remove-button">
+              <span class="btn-icon">🗑️</span>
+              Remove Product
+            </button>
+          </div>
+          <section>
+            <div class="row">
+              <h2
+                contenteditable="true"
+                class="prod_name"
+                placeholder="Enter Product Name"
+              ></h2>
+            </div>
+
+            <div class="row">
+              <label>Product URL:</label>
+              <input
+                type="text"
+                class="prod_url"
+                placeholder="https://example.com/product"
+              />
+            </div>
+
+            <div class="row">
+              <div class="displayed_values">
+                <label>x unit of product(op) shown:</label>
+                <input type="number" class="prod_x_unit" placeholder="e.g. 1" value="1" />
+              </div>
+
+              <div class="displayed_values">
+                <label>product quantity of 1 unit:</label>
+                <input type="number" class="prod_unit_qty" placeholder="e.g. 10" />
+              </div>
+
+              <div class="displayed_values">
+                <label>Displayed Product Quantity:</label>
+                <div class="quantity-input-group">
+                  <input type="number" class="prod_qty" placeholder="e.g. 10" readonly />
+                  <select class="prod_unit">
+                    <option value="count">per piece</option>
+                    <option value="l">Liters (L)</option>
+                    <option value="ml">Milliliters (mL)</option>
+                    <option value="mg">Milligrams (mg)</option>
+                    <option value="gm">Grams (g)</option>
+                    <option value="kg">Kilograms (kg)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="displayed_values">
+                <label>Displayed Product Price (₹):</label>
+                <input
+                  type="number"
+                  class="prod_price"
+                  placeholder="e.g. 10"
+                  step="0.01"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="displayed_values">
+                <label>Required Quantity by User:</label>
+                <input type="number" class="user_qty" placeholder="e.g. 4" />
+              </div>
+              <button class="calculate-btn">
+                <span class="btn-icon">🧮</span>
+                Calculate
+              </button>
+            </div>
+
+            <div class="row">
+              <div class="displayed_values">
+                <label>Cost per 1 Unit:</label>
+                <input type="number" class="cost_per_unit_price" readonly />
+              </div>
+              <div class="displayed_values">
+                <label>Cost per 100 Unit:</label>
+                <input type="number" class="cost_per_100unit_price" readonly />
+              </div>
+              <div class="displayed_values">
+                <label>Cost as required by User:</label>
+                <input type="number" class="user_qty_price" readonly />
+              </div>
+            </div>
+
+            <div class="row">
+              <img src="" alt="Product Image" class="prod_image" />
+            </div>
+          </section>
+        </div>
+
+        <div class="calculator">
+          <div class="remove_product">
+            <button class="remove-button">
+              <span class="btn-icon">🗑️</span>
+              Remove Product
+            </button>
+          </div>
+          <section>
+            <div class="row">
+              <h2
+                contenteditable="true"
+                class="prod_name"
+                placeholder="Enter Product Name"
+              ></h2>
+            </div>
+
+            <div class="row">
+              <label>Product URL:</label>
+              <input
+                type="text"
+                class="prod_url"
+                placeholder="https://example.com/product"
+              />
+            </div>
+
+            <div class="row">
+              <div class="displayed_values">
+                <label>x unit of product(op) shown:</label>
+                <input type="number" class="prod_x_unit" placeholder="e.g. 1" value="1" />
+              </div>
+
+              <div class="displayed_values">
+                <label>product quantity of 1 unit:</label>
+                <input type="number" class="prod_unit_qty" placeholder="e.g. 10" />
+              </div>
+
+              <div class="displayed_values">
+                <label>Displayed Product Quantity:</label>
+                <div class="quantity-input-group">
+                  <input type="number" class="prod_qty" placeholder="e.g. 10" readonly />
+                  <select class="prod_unit">
+                    <option value="count">per piece</option>
+                    <option value="l">Liters (L)</option>
+                    <option value="ml">Milliliters (mL)</option>
+                    <option value="mg">Milligrams (mg)</option>
+                    <option value="gm">Grams (g)</option>
+                    <option value="kg">Kilograms (kg)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="displayed_values">
+                <label>Displayed Product Price (₹):</label>
+                <input
+                  type="number"
+                  class="prod_price"
+                  placeholder="e.g. 10"
+                  step="0.01"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="displayed_values">
+                <label>Required Quantity by User:</label>
+                <input type="number" class="user_qty" placeholder="e.g. 4" />
+              </div>
+              <button class="calculate-btn">
+                <span class="btn-icon">🧮</span>
+                Calculate
+              </button>
+            </div>
+
+            <div class="row">
+              <div class="displayed_values">
+                <label>Cost per 1 Unit:</label>
+                <input type="number" class="cost_per_unit_price" readonly />
+              </div>
+              <div class="displayed_values">
+                <label>Cost per 100 Unit:</label>
+                <input type="number" class="cost_per_100unit_price" readonly />
+              </div>
+              <div class="displayed_values">
+                <label>Cost as required by User:</label>
+                <input type="number" class="user_qty_price" readonly />
+              </div>
+            </div>
+
+            <div class="row">
+              <img src="" alt="Product Image" class="prod_image" />
+            </div>
+          </section>
+        </div>
+
+        <div class="calculator">
+          <div class="remove_product">
+            <button class="remove-button">
+              <span class="btn-icon">🗑️</span>
+              Remove Product
+            </button>
+          </div>
+          <section>
+            <div class="row">
+              <h2
+                contenteditable="true"
+                class="prod_name"
+                placeholder="Enter Product Name"
+              ></h2>
+            </div>
+
+            <div class="row">
+              <label>Product URL:</label>
+              <input
+                type="text"
+                class="prod_url"
+                placeholder="https://example.com/product"
+              />
+            </div>
+
+            <div class="row">
+              <div class="displayed_values">
+                <label>x unit of product(op) shown:</label>
+                <input type="number" class="prod_x_unit" placeholder="e.g. 1" value="1" />
+              </div>
+
+              <div class="displayed_values">
+                <label>product quantity of 1 unit:</label>
+                <input type="number" class="prod_unit_qty" placeholder="e.g. 10" />
+              </div>
+
+              <div class="displayed_values">
+                <label>Displayed Product Quantity:</label>
+                <div class="quantity-input-group">
+                  <input type="number" class="prod_qty" placeholder="e.g. 10" readonly />
+                  <select class="prod_unit">
+                    <option value="count">per piece</option>
+                    <option value="l">Liters (L)</option>
+                    <option value="ml">Milliliters (mL)</option>
+                    <option value="mg">Milligrams (mg)</option>
+                    <option value="gm">Grams (g)</option>
+                    <option value="kg">Kilograms (kg)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="displayed_values">
+                <label>Displayed Product Price (₹):</label>
+                <input
+                  type="number"
+                  class="prod_price"
+                  placeholder="e.g. 10"
+                  step="0.01"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="displayed_values">
+                <label>Required Quantity by User:</label>
+                <input type="number" class="user_qty" placeholder="e.g. 4" />
+              </div>
+              <button class="calculate-btn">
+                <span class="btn-icon">🧮</span>
+                Calculate
+              </button>
+            </div>
+
+            <div class="row">
+              <div class="displayed_values">
+                <label>Cost per 1 Unit:</label>
+                <input type="number" class="cost_per_unit_price" readonly />
+              </div>
+              <div class="displayed_values">
+                <label>Cost per 100 Unit:</label>
+                <input type="number" class="cost_per_100unit_price" readonly />
+              </div>
+              <div class="displayed_values">
+                <label>Cost as required by User:</label>
+                <input type="number" class="user_qty_price" readonly />
+              </div>
+            </div>
+
+            <div class="row">
+              <img src="" alt="Product Image" class="prod_image" />
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
