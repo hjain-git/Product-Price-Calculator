@@ -24,12 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Setup event listeners inside a product block div
 function setupProductBlock(productDiv) {
-  // Calculate button
-  const calcBtn = productDiv.querySelector(".calculate-btn");
-  if (calcBtn) {
-    calcBtn.addEventListener("click", () => calculate(productDiv));
-  }
-
   // Product name - clear on first click
   const prodName = productDiv.querySelector(".prod_name");
   if (prodName) {
@@ -69,31 +63,40 @@ function setupProductBlock(productDiv) {
     });
   }
 
-  // Add event listeners to update labels dynamically
+  // Add event listeners to update labels and calculations dynamically
   const prodUnit = productDiv.querySelector(".prod_unit");
   const userQty = productDiv.querySelector(".user_qty");
   const prodXUnit = productDiv.querySelector(".prod_x_unit");
   const prodUnitQty = productDiv.querySelector(".prod_unit_qty");
+  const prodPrice = productDiv.querySelector(".prod_price");
+
+  const recalculate = () => {
+    updateDisplayedQuantity(productDiv);
+    calculate(productDiv);
+    updateLabels(productDiv);
+  };
 
   if (prodUnit) {
-    prodUnit.addEventListener("change", () => updateLabels(productDiv));
+    prodUnit.addEventListener("change", recalculate);
   }
 
   if (userQty) {
-    userQty.addEventListener("input", () => updateLabels(productDiv));
+    userQty.addEventListener("input", recalculate);
   }
 
-  if (prodXUnit && prodUnitQty) {
-    prodXUnit.addEventListener("input", () =>
-      updateDisplayedQuantity(productDiv)
-    );
-    prodUnitQty.addEventListener("input", () =>
-      updateDisplayedQuantity(productDiv)
-    );
+  if (prodXUnit) {
+    prodXUnit.addEventListener("input", recalculate);
   }
 
-  updateLabels(productDiv);
-  updateDisplayedQuantity(productDiv);
+  if (prodUnitQty) {
+    prodUnitQty.addEventListener("input", recalculate);
+  }
+
+  if (prodPrice) {
+    prodPrice.addEventListener("input", recalculate);
+  }
+
+  recalculate(); // Initial calculation and label update
 }
 
 function updateDisplayedQuantity(productDiv) {
@@ -205,10 +208,6 @@ function addProduct() {
           <label>Required Quantity by User:</label>
           <input type="number" class="user_qty" placeholder="e.g. 4" />
         </div>
-        <button class="calculate-btn">
-          <span class="btn-icon">🧮</span>
-          Calculate
-        </button>
       </div>
 
       <div class="row-fields">
