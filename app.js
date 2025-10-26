@@ -151,6 +151,7 @@ function addProduct() {
   const grid = document.getElementById("grid");
   const newDiv = document.createElement("div");
   newDiv.classList.add("calculator");
+  const newProdId = Date.now();
 
   newDiv.innerHTML = `
     <div class="remove_product">
@@ -174,14 +175,16 @@ function addProduct() {
           <label>Number of product units shown(default: 1):</label>
           <div class="quantity-input-group">
             <input type="number" class="prod_x_unit" placeholder="e.g. 1" value="1" />
-            <select class="prod_unit">
+            <select class="prod_unit" id="prod_unit_${newProdId}">
               <option value="count">per piece</option>
               <option value="l">Liters (L)</option>
               <option value="ml">Milliliters (mL)</option>
               <option value="mg">Milligrams (mg)</option>
               <option value="gm">Grams (g)</option>
               <option value="kg">Kilograms (kg)</option>
+              <option value="custom">Custom Unit</option>
             </select>
+            <input type="text" class="custom_unit_input" id="custom_unit_${newProdId}" placeholder="Enter custom unit" style="display: none;" />
           </div>
         </div>
 
@@ -235,5 +238,18 @@ function addProduct() {
   `;
 
   grid.appendChild(newDiv);
-  setupProductBlock(newDiv); // setup listeners on new block
+  setupProductBlock(newDiv);
+  showToast("Product added successfully!");
+}
+
+function showToast(message) {
+  const toast = document.createElement("div");
+  toast.classList.add("toast", "show");
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+    document.body.removeChild(toast);
+  }, 3000);
 }
